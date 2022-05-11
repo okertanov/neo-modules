@@ -335,6 +335,10 @@ namespace Neo.Plugins
                 return (OracleResponseCode.Error, null);
             if (!protocols.TryGetValue(uri.Scheme, out IOracleProtocol protocol))
                 return (OracleResponseCode.ProtocolNotSupported, null);
+
+            using CancellationTokenSource ctsTimeout = new(Settings.Default.MaxOracleTimeout);
+            using CancellationTokenSource ctsLinked = CancellationTokenSource.CreateLinkedTokenSource(cancelSource.Token, ctsTimeout.Token);
+            
             try
             {
                 return await protocol.ProcessAsync(uri, cancelSource.Token);
