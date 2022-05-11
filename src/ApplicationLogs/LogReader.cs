@@ -71,11 +71,11 @@ namespace Neo.Plugins
             trigger["gasconsumed"] = appExec.GasConsumed.ToString();
             try
             {
-                trigger["stack"] = appExec.Stack.Select(q => q.ToJson()).ToArray();
+                trigger["stack"] = appExec.Stack.Select(q => q.ToJson(Settings.Default.MaxStackSize)).ToArray();
             }
-            catch (InvalidOperationException)
+            catch (Exception ex)
             {
-                trigger["stack"] = "error: recursive reference";
+                trigger["exception"] = ex.Message;
             }
             trigger["notifications"] = appExec.Notifications.Select(q =>
             {
@@ -114,11 +114,11 @@ namespace Neo.Plugins
                     trigger["gasconsumed"] = appExec.GasConsumed.ToString();
                     try
                     {
-                        trigger["stack"] = appExec.Stack.Select(q => q.ToJson()).ToArray();
+                        trigger["stack"] = appExec.Stack.Select(q => q.ToJson(Settings.Default.MaxStackSize)).ToArray();
                     }
-                    catch (InvalidOperationException)
+                    catch (Exception ex)
                     {
-                        trigger["stack"] = "error: recursive reference";
+                        trigger["exception"] = ex.Message;
                     }
                     trigger["notifications"] = appExec.Notifications.Select(q =>
                     {

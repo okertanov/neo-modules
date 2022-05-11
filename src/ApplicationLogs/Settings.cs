@@ -6,6 +6,7 @@ namespace Neo.Plugins
     {
         public string Path { get; }
         public uint Network { get; }
+        public int MaxStackSize { get; }
 
         public static Settings Default { get; private set; }
 
@@ -13,6 +14,7 @@ namespace Neo.Plugins
         {
             this.Path = section.GetValue("Path", "ApplicationLogs_{0}");
             this.Network = section.GetValue("Network", 5195086u);
+            this.MaxStackSize = section.GetValue("MaxStackSize", (int)ushort.MaxValue);
         }
 
         public static void Load(IConfigurationSection section)
