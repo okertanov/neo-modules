@@ -134,7 +134,7 @@ namespace Neo.Plugins.StateService
             }
             catch (RpcException e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"{e.Message}, {e.ToString()}");
             }
         }
 
@@ -147,7 +147,7 @@ namespace Neo.Plugins.StateService
             }
             catch (RpcException e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"{e.Message}, {e.ToString()}");
             }
         }
 
